@@ -1,0 +1,50 @@
+{% extends "header.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+    
+    <table id="moviesTable">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Poster</th>
+                <th>Genre(s)</th>
+                <th>Rating</th>
+                <th>Year Release</th>
+                <th>Metacritic Rating</th>
+                <th>Runtime</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Loop through movie data and create rows -->
+        
+                {% for movie in movies %}
+                    <tr class="movie-row">
+                        <td>{{ movie.title }}</td>
+                        <td>
+                            {% if movie.poster != "N/A" %}
+                                <img src="{{ movie.poster }}" alt="{{ movie.title }}">
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td class="movie-genres">{{ movie.genre | join(', ') }}</td>
+                        <td>
+                            {% if movie.Ratings %}
+                                {{ movie.Ratings[0].value }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td>{{ movie.year }}</td>
+                        <td>{{ movie.meta_score if movie.meta_score != "N/A" else "N/A" }}</td>
+                        <td>{{ movie.runtime }}</td>
+                    </tr>
+                {% endfor %}
+         
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
